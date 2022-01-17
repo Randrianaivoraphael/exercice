@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>fetch</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>   
+	<style type="text/css">
+	h1{
+		text-align:center;
+		color: red;
+	}
+	#titre{
+		background-color: #0084FF;
+		text-align:center;
+		padding: 10px;
+		color: #ffff;
+	}
+	#list{
+		width: 700px;
+		margin: auto;
+	}
+	#mytable{
+	margin-top: 50px;
+	width: 700px;
+	 border: 1px solid #656565;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 10px 10px 5px #888888;
+    margin-bottom: 15px;
+    border-spacing: 0;
+	}
+	
+	#mytable thead tr th {
+    background-color: lightgray;
+	  border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+	</style>
+</head>
+<body>
+<div id="titre">
+<h3>FORMATION JQUERY </h3>
+</div>
+<div id="list">
+<table id="mytable">
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>City</th>
+					<th>Country</th>
+					<th>Postcode</th>
+					<th>Phone</th>
+					<th>Image</th>
+				</tr>
+			</thead>
+    <tbody>
+    </tbody>
+</table>
+</div>
+</body>
+<script type="text/javascript">
+	const url = 'https://randomuser.me/api/?results=10';
+	fetch(url)
+	.then((res)=> res.json())
+	.then(function(data){
+		let result = data.results;
+		return result.map(function(author){
+			     $('#mytable').append('<tr> <td>' + author.name.first + '</td>  <td>' + author.name.last + '</td> <td>' + author.phone + '</td><td>' + author.location.city + '</td><td>' + author.location.country + '</td><td>' + author.location.postcode + '</td><td><img src='+ author.picture.medium +'></img></td></tr>');
+		})		    
+	})
+	.catch(function(error){
+		console.log(error);
+	})
+</script>
+</html>
